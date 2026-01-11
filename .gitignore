@@ -1,0 +1,21 @@
+# OSX Specific files
+.DS_Store
+
+# Ms Visual Studio Code settings folder
+.vscode
+
+# Python cache folder
+__pycache__
+
+# Python virtual env folder
+venv
+
+# Ms Windows link files
+*.lnk
+*.url
+
+# xml files (settings, etc.)
+*.xml
+
+# Test files folder
+TestFiles
