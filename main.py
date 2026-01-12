@@ -1,6 +1,6 @@
 # main.py
 import wx
-from svgviewer import SVGViewerFrame
+from sources import SVGViewerFrame
 
 
 def main():

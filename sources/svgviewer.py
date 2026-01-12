@@ -3,8 +3,7 @@ import os
 import threading
 import wx
 
-from svgcanvas import SVGCanvas
-from thumbnailpanel import ThumbnailPanel
+from sources import SVGCanvas, ThumbnailPanel
 
 
 class FileDropHandler(wx.FileDropTarget):

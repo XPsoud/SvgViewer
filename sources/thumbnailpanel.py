@@ -2,7 +2,7 @@
 import os
 import wx
 from wx.svg import SVGimage
-from thumbnailbutton import ThumbnailButton
+from sources import ThumbnailButton
 
 class ThumbnailPanel(wx.Panel):
     """
