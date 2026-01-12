@@ -2,8 +2,10 @@
 import os
 import threading
 import wx
+import wx.adv
+from wx.svg import SVGimage
 
-from sources import SVGCanvas, ThumbnailPanel
+from sources import SVGCanvas, ThumbnailPanel, AppVersion
 from graphx import mainSvgFiles
 
 class FileDropHandler(wx.FileDropTarget):
@@ -32,9 +34,8 @@ class SVGViewerFrame(wx.Frame):
     def __init__(self, parent, title="SVG Viewer"):
         super().__init__(parent, title=title, size=(1000, 700))
 
-
-        bmp = wx.BitmapBundle.FromSVG(mainSvgFiles["svgviewer.svg"], (32, 32)).GetBitmap((32, 32))
-        self.SetIcon(wx.Icon(bmp))
+        img = SVGimage.CreateFromBytes(mainSvgFiles["svgviewer.svg"])
+        self.SetIcon(wx.Icon(img.ConvertToScaledBitmap((32, 32))))
 
         # List of SVG file paths
         self.svg_files = []
@@ -60,17 +61,24 @@ class SVGViewerFrame(wx.Frame):
         menubar = wx.MenuBar()
 
         file_menu = wx.Menu()
-        open_item = file_menu.Append(wx.ID_OPEN, "&Open...\tCtrl+O", "Open one or more SVG files")
+        open_item = file_menu.Append(wx.ID_OPEN)
         open_folder_item = file_menu.Append(wx.ID_ANY, "Open &Folder...\tCtrl+Shift+O", "Open all SVG files in a folder")
         file_menu.AppendSeparator()
-        exit_item = file_menu.Append(wx.ID_EXIT, "E&xit", "Quit application")
+        exit_item = file_menu.Append(wx.ID_EXIT)
+
+        menubar.Append(file_menu, wx.GetStockLabel(wx.ID_FILE))
+
+        help_menu = wx.Menu()
+        about_item = help_menu.Append(wx.ID_ABOUT)
+        
+        menubar.Append(help_menu, wx.GetStockLabel(wx.ID_HELP))
+
+        self.SetMenuBar(menubar)
 
         self.Bind(wx.EVT_MENU, self.on_open_files, open_item)
         self.Bind(wx.EVT_MENU, self.on_open_folder, open_folder_item)
         self.Bind(wx.EVT_MENU, self.on_exit, exit_item)
-
-        menubar.Append(file_menu, "&File")
-        self.SetMenuBar(menubar)
+        self.Bind(wx.EVT_MENU, self.on_about, about_item)
 
     def _create_status_bar(self):
         # Use 2 fields: [0] generic info, [1] loading/progress
@@ -284,3 +292,15 @@ class SVGViewerFrame(wx.Frame):
         # Stop thumbnail loading thread if running
         self._stop_loading = True
         event.Skip()
+
+    def on_about(self, event):
+        info = wx.adv.AboutDialogInfo()
+        v = AppVersion()
+        info.SetName(v.getAppName())
+        info.SetVersion(v.getVersion(True))
+        info.SetDescription(v.getAppDescription())
+        info.SetCopyright(v.getCopyright())
+        img = SVGimage.CreateFromBytes(mainSvgFiles["svgviewer.svg"])
+        info.SetIcon(wx.Icon(img.ConvertToScaledBitmap((128, 128))))
+
+        wx.adv.AboutBox(info)
