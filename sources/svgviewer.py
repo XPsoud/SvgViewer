@@ -4,7 +4,7 @@ import threading
 import wx
 
 from sources import SVGCanvas, ThumbnailPanel
-
+from graphx import mainSvgFiles
 
 class FileDropHandler(wx.FileDropTarget):
     """
@@ -32,10 +32,8 @@ class SVGViewerFrame(wx.Frame):
     def __init__(self, parent, title="SVG Viewer"):
         super().__init__(parent, title=title, size=(1000, 700))
 
-                
-        with open('svgviewer.svg', 'rb') as f:
-            self.svgIcon = f.read()
-        bmp = wx.BitmapBundle.FromSVG(self.svgIcon, (32, 32)).GetBitmap((32, 32))
+
+        bmp = wx.BitmapBundle.FromSVG(mainSvgFiles["svgviewer.svg"], (32, 32)).GetBitmap((32, 32))
         self.SetIcon(wx.Icon(bmp))
 
         # List of SVG file paths

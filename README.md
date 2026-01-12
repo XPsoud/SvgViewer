@@ -1,4 +1,4 @@
-# <img src="svgviewer.svg" height=30 valign="bottom"> SVG Viewer
+# <img src="graphx/svg/svgviewer.svg" height=30 valign="bottom"> SVG Viewer
 
 A simple SVG file viewer application built with wxPython. This application allows users to view SVG files with a main canvas display and a thumbnail strip for easy navigation.
 
