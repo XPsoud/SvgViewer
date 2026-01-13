@@ -36,8 +36,18 @@ A simple SVG file viewer application built with wxPython. This application allow
 
 - wxPython: For the GUI framework and SVG rendering capabilities.
 
+## 🚀 Improvement ideas
+
+Here are a few ideas of future improvements for this application:
+
+- Add zoom and pan controls (toolbar buttons + keyboard shortcuts) for better navigation.
+- Persistent "Recent files/folders" list and support session restore on launch.
+- Add export to PNG/JPEG/SVG rasterization and printing support.
+- Improve thumbnail caching and asynchronous rendering for large file sets.
+- Provide theme support (dark mode) and UI scaling for high-DPI displays.
+
 ## ⚖️ License
 
 This project is open-source and free, provided by Xav', and available under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 
-[![CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+<p style="text-align: center"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" /></a>></p>

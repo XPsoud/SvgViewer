@@ -7,7 +7,7 @@ class AppVersion():
     def __init__(self):
         self.Major = 1
         self.Minor = 0
-        self.Revision = 1
+        self.Revision = 2
         self.Build = 60113
 
     def getVersion(self, full=False):
