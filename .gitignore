@@ -17,5 +17,6 @@ venv
 # xml files (settings, etc.)
 *.xml
 
-# Test files folder
+# Test files and build folder
 TestFiles
+build

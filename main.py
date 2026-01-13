@@ -15,12 +15,17 @@ def show_version():
     print(f"{app_version.getAppName()} (v{app_version.getVersion(full=True)}) : {app_version.getCopyright()}")
     print(f"{app_version.getAppDescription()}")
 
+def do_build():
+    from tools import create_windows_package
+    create_windows_package()
+
 def usage():
     print("Usage: python main.py [options]")
     print("Options:")
     print("  -h, --help     Show this help message and exit")
     print("  -v, --version  Show application version and exit")
-    print("      --svg2py   Embeed SVG files into Python code")
+    print("      --svg2py   Embed SVG files into Python code")
+    print("      --build    Create a Ms Windows executable package")
     print("If no options are provided, the application will start normally.")
 
 if __name__ == "__main__":
@@ -35,6 +40,9 @@ if __name__ == "__main__":
         elif args[0] == "--svg2py":
             from tools import embed_svg_files
             embed_svg_files()
+        elif args[0] == "--build":
+            sys.argv[1] = "build"
+            do_build()
         else:
             usage()
     else:
