@@ -24,10 +24,12 @@ def create_windows_package():
         'packaging', 'pydoc_data',
         'setuptools', 'unittest', 'urllib', 'xml'
         ]
+    myIncludes = [('./langs/fr/svgviewer.mo','langs/fr/svgviewer.mo')]
 
     build_exe_options = {
         "build_exe": "build/SvgViewer",
         'excludes': myExcludes,
+        'include_files': myIncludes,
         "optimize": 2
     }
 
