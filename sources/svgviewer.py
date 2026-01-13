@@ -33,8 +33,9 @@ class SVGViewerFrame(wx.Frame):
     - Provides menus, status bar, and drag & drop support.
     """
 
-    def __init__(self, parent, title=_("SVG Viewer")):
-        super().__init__(parent, title=title, size=(1000, 700))
+    def __init__(self, parent):
+        self.version = AppVersion()
+        super().__init__(parent, title=self.version.getMainWindowTitle(), size=(1000, 700))
 
         img = SVGimage.CreateFromBytes(mainSvgFiles["svgviewer.svg"])
         self.SetIcon(wx.Icon(img.ConvertToScaledBitmap((32, 32))))
@@ -250,7 +251,7 @@ class SVGViewerFrame(wx.Frame):
         current_path = self.svg_files[self.current_index]
 
         # Update window title and status bar
-        self.SetTitle(_("SVG Viewer") + f" - {os.path.basename(current_path)}")
+        self.SetTitle(self.version.getMainWindowTitle() + f" - {os.path.basename(current_path)}")
         self.status_bar.SetStatusText(current_path, 0)
 
         # Update canvas
