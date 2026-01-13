@@ -1,0 +1,66 @@
+# Message catalog file for SVGViewer application
+# Copyright (C) 2026 X.P.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: SVGViewer application\n"
+"POT-Creation-Date: 2026-01-13 15:14+0100\n"
+"PO-Revision-Date: 2026-01-13 15:15+0100\n"
+"Last-Translator: Xaviou <x.psoud@gmail.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-Basepath: ../..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: venv\n"
+"X-Poedit-SearchPathExcluded-1: build\n"
+"X-Poedit-SearchPathExcluded-2: .git\n"
+
+#: sources/svgviewer.py:36 sources/svgviewer.py:253
+msgid "SVG Viewer"
+msgstr "SVG Viewer"
+
+#: sources/svgviewer.py:67
+msgid "Open &Folder...\tCtrl+Shift+O"
+msgstr "Ouvrir le &dossier...\tCtrl+Maj+O"
+
+#: sources/svgviewer.py:67
+msgid "Open all SVG files in a folder"
+msgstr "Ouvrir tous les fichiers SVG dans un dossier"
+
+#: sources/svgviewer.py:89
+msgid "Ready"
+msgstr "Prêt"
+
+#: sources/svgviewer.py:124
+msgid "Open SVG files"
+msgstr "Ouvrir les fichiers SVG"
+
+#: sources/svgviewer.py:125
+msgid "SVG files (*.svg)|*.svg|All files (*.*)|*.*"
+msgstr "Fichiers SVG (*.svg)|*.svg|Tous les fichiers (*.*)|*.*"
+
+#: sources/svgviewer.py:134
+msgid "Open folder with SVG files"
+msgstr "Ouvrir un dossier avec des fichiers SVG"
+
+#: sources/svgviewer.py:215
+msgid "Loading priority thumbnails:"
+msgstr "Chargement des vignettes prioritaires :"
+
+#: sources/svgviewer.py:228
+msgid "Loading remaining thumbnails:"
+msgstr "Chargement des vignettes restantes :"
+
+#: sources/version.py:22
+msgid "Copyright (c) X.P."
+msgstr "Copyright (c) X.P."
+
+#: sources/version.py:28
+msgid "Simple SVG images viewer"
+msgstr "Visionneuse d'images SVG simpliste"

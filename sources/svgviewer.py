@@ -8,6 +8,8 @@ from wx.svg import SVGimage
 from sources import SVGCanvas, ThumbnailPanel, AppVersion
 from graphx import mainSvgFiles
 
+_ = wx.GetTranslation
+
 class FileDropHandler(wx.FileDropTarget):
     """
     File and folder drag-and-drop handler.
@@ -31,7 +33,7 @@ class SVGViewerFrame(wx.Frame):
     - Provides menus, status bar, and drag & drop support.
     """
 
-    def __init__(self, parent, title="SVG Viewer"):
+    def __init__(self, parent, title=_("SVG Viewer")):
         super().__init__(parent, title=title, size=(1000, 700))
 
         img = SVGimage.CreateFromBytes(mainSvgFiles["svgviewer.svg"])
@@ -62,7 +64,7 @@ class SVGViewerFrame(wx.Frame):
 
         file_menu = wx.Menu()
         open_item = file_menu.Append(wx.ID_OPEN)
-        open_folder_item = file_menu.Append(wx.ID_ANY, "Open &Folder...\tCtrl+Shift+O", "Open all SVG files in a folder")
+        open_folder_item = file_menu.Append(wx.ID_ANY, _("Open &Folder...\tCtrl+Shift+O"), _("Open all SVG files in a folder"))
         file_menu.AppendSeparator()
         exit_item = file_menu.Append(wx.ID_EXIT)
 
@@ -84,7 +86,7 @@ class SVGViewerFrame(wx.Frame):
         # Use 2 fields: [0] generic info, [1] loading/progress
         self.status_bar = self.CreateStatusBar(2)
         self.status_bar.SetStatusWidths([-2, -1])
-        self.status_bar.SetStatusText("Ready", 0)
+        self.status_bar.SetStatusText(_("Ready"), 0)
         self.status_bar.SetStatusText("", 1)
 
     def _create_main_layout(self):
@@ -119,8 +121,8 @@ class SVGViewerFrame(wx.Frame):
     def on_open_files(self, event):
         with wx.FileDialog(
             self,
-            "Open SVG files",
-            wildcard="SVG files (*.svg)|*.svg",
+            _("Open SVG files"),
+            wildcard=_("SVG files (*.svg)|*.svg|All files (*.*)|*.*"),
             style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST | wx.FD_MULTIPLE,
         ) as dlg:
             if dlg.ShowModal() == wx.ID_CANCEL:
@@ -129,7 +131,7 @@ class SVGViewerFrame(wx.Frame):
         self.add_svg_files(paths)
 
     def on_open_folder(self, event):
-        with wx.DirDialog(self, "Open folder with SVG files") as dlg:
+        with wx.DirDialog(self, _("Open folder with SVG files")) as dlg:
             if dlg.ShowModal() == wx.ID_CANCEL:
                 return
             folder = dlg.GetPath()
@@ -210,7 +212,7 @@ class SVGViewerFrame(wx.Frame):
                     break
                 wx.CallAfter(
                     self.status_bar.SetStatusText,
-                    f"Loading priority thumbnails: {i}/{len(priority_paths)}",
+                    _("Loading priority thumbnails:") + f" {i}/{len(priority_paths)}",
                     1,
                 )
                 wx.CallAfter(self.thumb_panel.load_thumbnail_bitmap, path)
@@ -223,7 +225,7 @@ class SVGViewerFrame(wx.Frame):
                     break
                 wx.CallAfter(
                     self.status_bar.SetStatusText,
-                    f"Loading remaining thumbnails: {i}/{len(remaining_paths)}",
+                    _("Loading remaining thumbnails:") + f" {i}/{len(remaining_paths)}",
                     1,
                 )
                 wx.CallAfter(self.thumb_panel.load_thumbnail_bitmap, path)
@@ -248,7 +250,7 @@ class SVGViewerFrame(wx.Frame):
         current_path = self.svg_files[self.current_index]
 
         # Update window title and status bar
-        self.SetTitle(f"SVG Viewer - {os.path.basename(current_path)}")
+        self.SetTitle(_("SVG Viewer") + f" - {os.path.basename(current_path)}")
         self.status_bar.SetStatusText(current_path, 0)
 
         # Update canvas

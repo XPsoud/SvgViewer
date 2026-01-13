@@ -1,13 +1,10 @@
 # main.py
 import sys
 import wx
-from sources import SVGViewerFrame, AppVersion
-
+from sources import SVGViewerApp, AppVersion
 
 def main():
-    app = wx.App(False)
-    frame = SVGViewerFrame(None, title="SVG Viewer")
-    frame.Show()
+    app = SVGViewerApp()
     app.MainLoop()
 
 def show_version():
