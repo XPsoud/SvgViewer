@@ -242,7 +242,13 @@ class SVGViewerFrame(wx.Frame):
     # ------------------------------------------------------------------
     def set_current_index(self, index):
         if not self.svg_files:
+            # No files: show app title and default image
+            self.current_index = -1
+            self.SetTitle(self.version.getMainWindowTitle())
+            self.status_bar.SetStatusText("", 0)
+            self.canvas.clear()
             return
+
         index = max(0, min(index, len(self.svg_files) - 1))
         if index == self.current_index:
             return
