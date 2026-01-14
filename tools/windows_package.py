@@ -15,6 +15,7 @@ def create_windows_package():
     archi = '64' if (sys.maxsize > 2**32) else '32'
     v = sys.version_info
     pyVersion = f"{v[0]}.{v[1]}.{v[2]}"
+    pyVersFloat = float(f"{v[0]}.{v[1]}")
     print(f"Building package for {sName}-Win{archi}-Py{pyVersion}")
 
     myExcludes = [
@@ -35,7 +36,10 @@ def create_windows_package():
 
     base = None
     if sys.platform == "win32":
-        base = "Win32GUI"
+        if pyVersFloat <= 3.12:
+            base = "Win32GUI"
+        else:
+            base = "GUI"
 
     setup(  name = appVers.getAppName(),
             version = appVers.getVersion(False),
