@@ -8,7 +8,7 @@ from cx_Freeze import setup, Executable
 from sources import AppVersion
 
 
-def create_windows_package():
+def create_package(withArchive = True):
     # Initialize variables
     appVers = AppVersion()
     sName = appVers.getAppName() + "-" + appVers.getVersion(False)
@@ -34,12 +34,14 @@ def create_windows_package():
         "optimize": 2
     }
 
-    base = None
+    exeName = appVers.getAppName()
+    if sys.platform == "win32":
+        exeName = exeName + ".exe"
+
+    base = "gui"
     if sys.platform == "win32":
         if pyVersFloat <= 3.12:
             base = "Win32GUI"
-        else:
-            base = "GUI"
 
     setup(  name = appVers.getAppName(),
             version = appVers.getVersion(False),
@@ -52,21 +54,38 @@ def create_windows_package():
                 base = base,
                 icon = 'graphx/svgviewer.ico',
                 copyright = appVers.getCopyright(),
-                target_name = f'{appVers.getAppName()}.exe'
+                target_name = exeName
                 )])
+    
+    if withArchive is False:
+        return
 
     # Try to find 7zip command line executable
-    #First, search thru the PATH
-    sevenZip = shutil.which('7z.exe')
-    if sevenZip is None:
-        # Try the standard installation folder
-        sevenZip = Path(os.environ.get("ProgramFiles")) / '7-Zip' / '7z.exe'
-        if not sevenZip.exists():
-            sevenZip = None
-    
-    archName = sName +"_Python-" + pyVersion + '_Win' + archi + ('.7z' if sevenZip is not None else '.zip')
+    sevenZip = None
+    systName = None
+    if sys.platform == "linux":
+        systName = f"Linux{archi}"
+        # For Linux we search for "7za"
+        sevenZip = shutil.which('7za')
+    elif sys.platform == "win32":
+        systName = f"Win{archi}"
+        # First, search thru the PATH
+        sevenZip = shutil.which('7z.exe')
+        if sevenZip is None:
+            # Try the standard installation folder
+            sevenZip = Path(os.environ.get("ProgramFiles")) / '7-Zip' / '7z.exe'
+            if not sevenZip.exists():
+                sevenZip = None
+    else:
+        systName = f"UnknownOS{archi}"
+        sevenZip = None
+
+    archName = sName +"_Python-" + pyVersion + '_' + systName + ('.7z' if sevenZip is not None else '.zip')
 
     source_dir = Path(__file__).parent.parent / 'build' / 'SvgViewer'
+    archive = source_dir.parent / archName
+    if archive.is_file():
+        archive.unlink()
 
     print(f"Creating archive {archName} from {source_dir}")
     if sevenZip:
